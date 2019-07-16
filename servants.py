@@ -19,13 +19,12 @@ class Servant:
 if __name__ == '__main__':
     url = r"http://fate-go.cirnopedia.org/servant_all.php"
     data = requests.get(url)
-    if data.status_code != 200: #???
+    if data.status_code != 200: 
         raise ConnectionError("Connection interrupted")
     html = data.text
     tree = BeautifulSoup(html, 'lxml')  # may require to `pip install lxml`
-    servants_data = tree.find('tbody') #я так понял,что тут у нас идёт поиск в сайте tbody,используя для этого специальный модуль
-    #beautifullsoup,но что означает lxlm хз
-    servants = dict()#я понял,что мы создаём словарь,записывает в себя имя серванта и его хр и атк(тут не понял как работает)
+    servants_data = tree.find('tbody') #поиск в сайте tbody
+    servants = dict()#создаём словарь,записывает в себя имя серванта и его хр и атк(тут не понял как работает)
     for servant_data in servants_data.find_all('tr'):
         if 'class' in servant_data.contents[4].attrs:
             continue  # unplayable
